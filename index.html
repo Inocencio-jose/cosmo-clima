@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Fonte Ubuntu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/index.css">
+    <!-- Scripts -->
+    <script src="js/app.js" defer></script>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="theme-color" content="#5c54ed">
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <title>Cosmo Clima</title>
+    <style>
+        body{
+            background-image: url("imgs/1.jpg");
+        }
+        .container{
+            background-color: transparent;
+            backdrop-filter: blur(2px);
+        }
+        .typewriter{
+            border: none;
+        }
+        #splash-screen {
+            background: linear-gradient(135deg, #060135, #473ad3, #6666e6);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tela de abertura -->
+    <div id="splash-screen">
+      <div class="splash-content">
+        <h1 class="typewriter">Orion Technologies Presents</h1>
+        <h1 class="typewriter"><small>Cosmo clima</small></h1>
+        <h1 class="typewriter"><small>Informações meteorológicas em tempo real com o Cosmo clima</small></h1>
+        <div class="loader"></div>
+      </div>
+    </div>
+
+   <div class="container">
+    <div class="form">
+        <h3>Confira o Clima de uma Cidade</h3>
+        <div class="form-input-container">
+            <input type="text" placeholder="Digite o nome de uma cidade" id="city-input">
+            <button id="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </div>
+    <div id="weather-data" class="hide">
+        <h2>
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="city">Cidade</span>
+            <img 
+                alt="Bandeira do País" 
+                id="country"
+            />
+        </h2>
+        <p id="temperature"><span>Temperatura</span>&deg;C</p>
+        <div id="description-container">
+            <p id="description">Condição de Tempo</p>
+            <img src="http://openweathermap.org/img/wn/01d.png"
+                alt="Condições do tempo" 
+                id="weather-icon"
+            />
+        </div>
+        <div id="details-container">
+            <p id="umidity">
+                <i class="fa-solid fa-droplet"></i>
+                <span>Humidade</span>
+            </p>
+            <p id="wind">
+                <i class="fa-solid fa-wind"></i>
+                <span>Vento km/h</span>
+            </p>
+        </div>
+    </div>
+    <!-- Loading -->
+    <div id="loading" class="hide">
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+        <p>Carregando...</p>
+    </div>
+    <!-- Erro -->
+    <div id="error-message" class="hide">
+        <p><i class="fas fa-exclamation-triangle"></i> Cidade não encontrada. Tente novamente.</p>
+    </div>
+   </div>
+   <script>
+        // service worker em pwa 
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js').catch(console.error);
+          });
+        }
+   </script>
+</body>
+</html>
